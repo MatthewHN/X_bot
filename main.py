@@ -1,8 +1,7 @@
 import os
-import tweepy
-from reddit_bot import initialize_reddit, fetch_media_posts
-from twitter_bot import post_to_twitter
-from media_downloader import download_media
+import reddit_bot
+import media_downloader
+import twitter_bot
 
 # Reddit and Twitter credentials
 reddit_client_id = '8AMrWjja6Blym5QkFW9JKA'
@@ -14,24 +13,47 @@ twitter_consumer_secret = 'kHEDiFaVzALch8XkBqyqkZ2eereq9v3Vd4WFdhSIYdT7FjF8nI'
 twitter_access_token = '1724193786748710912-2TqJhNI0U2lNhO8XC8kvyZIIpG2OCo'
 twitter_access_token_secret = 'B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
 
-auth = tweepy.OAuth1UserHandler(
-    consumer_key='apMQ6gPAJV7dMpQrsLQlTFh6L',
-    consumer_secret='kHEDiFaVzALch8XkBqyqkZ2eereq9v3Vd4WFdhSIYdT7FjF8nI',
-    access_token='1724193786748710912-2TqJhNI0U2lNhO8XC8kvyZIIpG2OCo',
-    access_token_secret='B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
-)
 
-#
+def get_absolute_file_path(filename):
+    # Get the current working directory
+    current_directory = os.getcwd()
+
+    # Construct the absolute path
+    absolute_path = os.path.join(current_directory, filename)
+
+    # Check if the file exists
+    if os.path.exists(absolute_path):
+        return absolute_path
+    else:
+        return "File not found."
+
+
 def main():
-    reddit = initialize_reddit(reddit_client_id, reddit_client_secret, reddit_user_agent)
-    twitter_api = tweepy.API(auth, wait_on_rate_limit=True)
+    # Specify the subreddit of choice
+    subreddit_name = "puppies"
 
-    posts = fetch_media_posts(reddit, 'puppies')
-    for title, url in posts:
-        filename = download_media(url, 'temp_media_file')
-        if filename:
-            post_to_twitter(twitter_api, filename, title)
-            #os.remove(filename)
+    # Fetch media from Reddit
+    posts = reddit_bot.fetch(subreddit_name)
+
+    # Process and post each media item
+    for post in posts:
+        title = post["title"]
+        media_url = post["media_url"]
+
+        if media_url:
+            # Download the media
+            filename = f"{title}.jpg" if media_url.endswith(".jpg") or media_url.endswith(".png") else f"{title}.mp4"
+            file_path = get_absolute_file_path(filename)
+
+            if media_downloader.download_media(media_url, filename):
+                # Post the media to Twitter
+                twitter_bot.post_tweet(f"{title}", file_path)
+                print(f"Successfully posted '{title}' to Twitter.")
+            else:
+                print(f"Failed to download media for '{title}'.")
+        else:
+            print("No media")
+        os.remove(filename)
 
 
 if __name__ == "__main__":

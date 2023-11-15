@@ -1,4 +1,5 @@
 import tweepy
+import time
 
 # Authenticate to Twitter
 client = tweepy.Client(
@@ -7,6 +8,7 @@ client = tweepy.Client(
     access_token='1724193786748710912-2TqJhNI0U2lNhO8XC8kvyZIIpG2OCo',
     access_token_secret='B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
 )
+
 auth = tweepy.OAuth1UserHandler(
     consumer_key='apMQ6gPAJV7dMpQrsLQlTFh6L',
     consumer_secret='kHEDiFaVzALch8XkBqyqkZ2eereq9v3Vd4WFdhSIYdT7FjF8nI',
@@ -14,18 +16,19 @@ auth = tweepy.OAuth1UserHandler(
     access_token_secret='B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
 )
 
-# Create API object
-#API = tweepy.API(auth, wait_on_rate_limit=True)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 
-def post_to_twitter(twitter_api, filename, status_text):
+def upload_media(media_path):
+    # Upload the media file to Twitter and return the media ID
+    response = api.media_upload(media_path)
+    time.sleep(3)
+    return response.media_id_string
+
+
+def post_tweet(title, media_path):
     try:
-        if filename:
-            # Post a tweet with an image
-            media = twitter_api.media_upload(filename)
-            client.create_tweet(text=status_text, media_ids=[media.media_id])
-        else:
-            # Post a text-only tweet
-            client.create_tweet(text=status_text)
+        media_id = upload_media(media_path)
+        client.create_tweet(text=title, media_ids=[media_id])
     except Exception as e:
         print(f"An error occurred while posting to Twitter: {e}")
