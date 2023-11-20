@@ -1,5 +1,4 @@
 import tweepy
-import time
 
 # Authenticate to Twitter
 client = tweepy.Client(

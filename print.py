@@ -1,5 +1,4 @@
 import praw
-import json
 
 # Initialize PRAW with your credentials
 reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
@@ -8,7 +7,7 @@ reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
 
 
 # Function to fetch and print media URLs of posts from a subreddit
-def print_media_urls_from_subreddit(subreddit_name, limit=1):
+def print_media_urls_from_subreddit(subreddit_name, limit=3):
     # Access the subreddit
     subreddit = reddit.subreddit(subreddit_name)
 
@@ -17,4 +16,4 @@ def print_media_urls_from_subreddit(subreddit_name, limit=1):
         print(f"Title: {submission.title}\nURL: {submission.url}")
 
 
-print_media_urls_from_subreddit('puppies')
+print_media_urls_from_subreddit('aww')

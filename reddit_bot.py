@@ -1,5 +1,4 @@
 import praw
-import requests
 
 
 def fetch(subreddit_name):
@@ -10,7 +9,7 @@ def fetch(subreddit_name):
 
     # Get posts from the subreddit
     subreddit = reddit.subreddit(subreddit_name)
-    posts = subreddit.hot(limit=2)
+    posts = subreddit.hot(limit=3)
 
     # Extract relevant data and media URLs from posts
     post_data = []
