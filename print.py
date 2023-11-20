@@ -8,7 +8,7 @@ reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
 
 
 # Function to fetch and print media URLs of posts from a subreddit
-def print_media_urls_from_subreddit(subreddit_name, limit=5):
+def print_media_urls_from_subreddit(subreddit_name, limit=1):
     # Access the subreddit
     subreddit = reddit.subreddit(subreddit_name)
 

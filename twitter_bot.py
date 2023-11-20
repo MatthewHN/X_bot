@@ -22,7 +22,6 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 def upload_media(media_path):
     # Upload the media file to Twitter and return the media ID
     response = api.media_upload(media_path)
-    time.sleep(3)
     return response.media_id_string
 
 
@@ -30,5 +29,6 @@ def post_tweet(title, media_path):
     try:
         media_id = upload_media(media_path)
         client.create_tweet(text=title, media_ids=[media_id])
+        print(f"Successfully posted '{title}' to Twitter.")
     except Exception as e:
         print(f"An error occurred while posting to Twitter: {e}")

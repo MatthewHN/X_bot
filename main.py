@@ -2,6 +2,7 @@ import os
 import reddit_bot
 import media_downloader
 import twitter_bot
+import time
 
 # Reddit and Twitter credentials
 reddit_client_id = '8AMrWjja6Blym5QkFW9JKA'
@@ -42,18 +43,19 @@ def main():
 
         if media_url:
             # Download the media
-            filename = f"{title}.jpg" if media_url.endswith(".jpg") or media_url.endswith(".png") else f"{title}.mp4"
-            file_path = get_absolute_file_path(filename)
-
-            if media_downloader.download_media(media_url, filename):
+            filename = f"{title}.jpg" if media_url.endswith(".jpg") or media_url.endswith(".png") or media_url.endswith(
+                ".jpeg") else f"{title}.mp4"
+            file_path = os.getcwd() + '\\downloaded_files\\' + filename
+            if os.path.exists(file_path):
+                print("Repeated post, not posting")
+                continue
+            if media_downloader.download_media(media_url, filename, 'downloaded_files'):
                 # Post the media to Twitter
                 twitter_bot.post_tweet(f"{title}", file_path)
-                print(f"Successfully posted '{title}' to Twitter.")
             else:
                 print(f"Failed to download media for '{title}'.")
         else:
-            print("No media")
-        os.remove(filename)
+            print("No media URL")
 
 
 if __name__ == "__main__":
