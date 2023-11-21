@@ -16,10 +16,14 @@ def fetch(subreddit_name):
     for submission in posts:
         title = submission.title
         media_url = submission.url
-
-        post_data.append({
-            "title": title,
-            "media_url": media_url
-        })
+        if 'comments' in media_url:
+            print('Es un comentario fijado')
+        elif 'gallery' in media_url:
+            print('Es un conjunto de imágenes')
+        else:
+            post_data.append({
+                "title": title,
+                "media_url": media_url
+            })
 
     return post_data

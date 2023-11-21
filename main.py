@@ -31,7 +31,7 @@ def get_absolute_file_path(filename):
 
 def main():
     # Specify the subreddit of choice
-    subreddit_name = "aww"
+    subreddit_name = "puppies"
 
     # Fetch media from Reddit
     posts = reddit_bot.fetch(subreddit_name)
@@ -57,8 +57,8 @@ def main():
         else:
             print("No media URL")
 
-    time.sleep(60 * 60 * 4)
-    main()
+    #time.sleep(60 * 60 * 4)
+    #main()
 
 
 if __name__ == "__main__":
