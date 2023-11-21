@@ -2,6 +2,7 @@ import os
 import requests
 
 def download_media(media_url, filename, save_path):
+    media_url = "https://packaged-media.redd.it/izchbn8eip1c1/pb/m2-res_1920p.mp4?m=DASHPlaylist.mpd&v=1&e=1700611200&s=3fb72aa238620b30c534b26927664715a7b6d9f8#t=0"
     # Ensure the save path exists, create if it doesn't
     if not os.path.exists(save_path):
         os.makedirs(save_path)

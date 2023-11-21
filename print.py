@@ -16,4 +16,4 @@ def print_media_urls_from_subreddit(subreddit_name, limit=3):
         print(f"Title: {submission.title}\nURL: {submission.url}")
 
 
-print_media_urls_from_subreddit('puppies')
+print_media_urls_from_subreddit('aww')

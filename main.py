@@ -2,6 +2,7 @@ import os
 import reddit_bot
 import media_downloader
 import twitter_bot
+import random
 import time
 
 # Reddit and Twitter credentials
@@ -31,8 +32,9 @@ def get_absolute_file_path(filename):
 
 def main():
     # Specify the subreddit of choice
-    subreddit_name = "puppies"
-
+    subreddits = ['aww', 'puppies', 'TuckedInPuppies', 'PuppySmiles', 'FunnyPuppies', 'rarepuppers', 'Eyebleach', 'dogpictures', 'goldenretrievers', 'germansheperds', 'Dachshund']
+    subreddit_name = random.choice(subreddits)
+    print(subreddit_name)
     # Fetch media from Reddit
     posts = reddit_bot.fetch(subreddit_name)
 

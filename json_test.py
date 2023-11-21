@@ -8,7 +8,7 @@ reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
 
 
 # Function to fetch and print media metadata of posts from a subreddit
-def print_media_metadata_from_subreddit(subreddit_name, limit=5):
+def print_media_metadata_from_subreddit(subreddit_name, limit=3):
     # Access the subreddit
     subreddit = reddit.subreddit(subreddit_name)
 
@@ -28,4 +28,4 @@ def print_media_metadata_from_subreddit(subreddit_name, limit=5):
 
 
 # Replace 'subreddit_name' with the name of your desired subreddit
-print_media_metadata_from_subreddit('puppies')
+print_media_metadata_from_subreddit('aww')

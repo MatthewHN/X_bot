@@ -1,4 +1,3 @@
-2. Make it select randomly from a bunch of subreddits
 3. Make sure it posts at least once
 4. Fix downloading/posting for videos it doesn't download correctly thus not being posted
 5. Set up docker container for the project
