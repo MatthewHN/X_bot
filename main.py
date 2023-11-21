@@ -31,33 +31,37 @@ def get_absolute_file_path(filename):
 
 
 def main():
-    # Specify the subreddit of choice
-    subreddits = ['aww', 'puppies', 'TuckedInPuppies', 'PuppySmiles', 'FunnyPuppies', 'rarepuppers', 'Eyebleach', 'dogpictures', 'goldenretrievers', 'germansheperds', 'Dachshund']
-    subreddit_name = random.choice(subreddits)
-    print(subreddit_name)
-    # Fetch media from Reddit
-    posts = reddit_bot.fetch(subreddit_name)
+    posted = False
+    while not posted:
+        # Specify the subreddit of choice
+        subreddits = ['aww', 'puppies', 'TuckedInPuppies', 'PuppySmiles', 'FunnyPuppies', 'rarepuppers', 'Eyebleach', 'dogpictures', 'goldenretrievers', 'germansheperds', 'Dachshund']
+        subreddit_name = random.choice(subreddits)
+        print(subreddit_name)
+        # Fetch media from Reddit
+        posts = reddit_bot.fetch(subreddit_name)
 
-    # Process and post each media item
-    for post in posts:
-        title = post["title"]
-        media_url = post["media_url"]
+        # Process and post each media item
+        for post in posts:
+            while not posted:
+                title = post["title"]
+                media_url = post["media_url"]
 
-        if media_url:
-            # Download the media
-            filename = f"{title}.jpg" if media_url.endswith(".jpg") or media_url.endswith(".png") or media_url.endswith(
-                ".jpeg") else f"{title}.mp4"
-            file_path = os.getcwd() + '\\downloaded_files\\' + filename
-            if os.path.exists(file_path):
-                print("Repeated post, not posting")
-                continue
-            if media_downloader.download_media(media_url, filename, 'downloaded_files'):
-                # Post the media to Twitter
-                twitter_bot.post_tweet(f"{title}", file_path)
-            else:
-                print(f"Failed to download media for '{title}'.")
-        else:
-            print("No media URL")
+                if media_url:
+                    # Download the media
+                    filename = f"{title}.jpg" if media_url.endswith(".jpg") or media_url.endswith(".png") or media_url.endswith(
+                        ".jpeg") else f"{title}.mp4"
+                    file_path = os.getcwd() + '\\downloaded_files\\' + filename
+                    if os.path.exists(file_path):
+                        print("Repeated post, not posting")
+                        continue
+                    if media_downloader.download_media(media_url, filename, 'downloaded_files'):
+                        # Post the media to Twitter
+                        if twitter_bot.post_tweet(f"{title}", file_path):
+                            posted = True
+                    else:
+                        print(f"Failed to download media for '{title}'.")
+                else:
+                    print("No media URL")
 
     #time.sleep(60 * 60 * 4)
     #main()

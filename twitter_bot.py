@@ -29,5 +29,7 @@ def post_tweet(title, media_path):
         media_id = upload_media(media_path)
         client.create_tweet(text=title, media_ids=[media_id])
         print(f"Successfully posted '{title}' to Twitter.")
+        return True
     except Exception as e:
         print(f"An error occurred while posting to Twitter: {e}")
+        return False
