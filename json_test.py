@@ -1,10 +1,12 @@
 import praw
 import json
+import api_keys
 
 # Initialize PRAW with your credentials
-reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
-                     client_secret='5fkKh4aDfCxbrk9uX-0qlrPTZtP6PQ',
-                     user_agent='script:Puppy fever X bot:v1.0 (by u/Quirky_Virus1917)')
+reddit = praw.Reddit(client_id=api_keys.reddit_client_id,
+                     client_secret=api_keys.reddit_client_secret,
+                     user_agent=api_keys.reddit_user_agent
+                     )
 
 
 # Function to fetch and print media metadata of posts from a subreddit

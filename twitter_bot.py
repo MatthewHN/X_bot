@@ -1,18 +1,19 @@
 import tweepy
+import api_keys
 
 # Authenticate to Twitter
 client = tweepy.Client(
-    consumer_key='apMQ6gPAJV7dMpQrsLQlTFh6L',
-    consumer_secret='kHEDiFaVzALch8XkBqyqkZ2eereq9v3Vd4WFdhSIYdT7FjF8nI',
-    access_token='1724193786748710912-2TqJhNI0U2lNhO8XC8kvyZIIpG2OCo',
-    access_token_secret='B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
+    consumer_key=api_keys.twitter_consumer_key,
+    consumer_secret=api_keys.twitter_consumer_secret,
+    access_token=api_keys.twitter_access_token,
+    access_token_secret=api_keys.twitter_access_token_secret
 )
 
 auth = tweepy.OAuth1UserHandler(
-    consumer_key='apMQ6gPAJV7dMpQrsLQlTFh6L',
-    consumer_secret='kHEDiFaVzALch8XkBqyqkZ2eereq9v3Vd4WFdhSIYdT7FjF8nI',
-    access_token='1724193786748710912-2TqJhNI0U2lNhO8XC8kvyZIIpG2OCo',
-    access_token_secret='B3FBYHsDps7SDPhDxLOWip8vi3Hvd8KNEbshGzgqqY5vc'
+    consumer_key=api_keys.twitter_consumer_key,
+    consumer_secret=api_keys.twitter_consumer_secret,
+    access_token=api_keys.twitter_access_token,
+    access_token_secret=api_keys.twitter_access_token_secret
 )
 
 api = tweepy.API(auth, wait_on_rate_limit=True)

@@ -1,11 +1,12 @@
 import praw
+import api_keys
 
 
 def fetch(subreddit_name):
     # Authenticate with praw
-    reddit = praw.Reddit(client_id='8AMrWjja6Blym5QkFW9JKA',
-                         client_secret='5fkKh4aDfCxbrk9uX-0qlrPTZtP6PQ',
-                         user_agent='script:Puppy fever X bot:v1.0 (by u/Quirky_Virus1917)')
+    reddit = praw.Reddit(client_id=api_keys.reddit_client_id,
+                         client_secret=api_keys.reddit_client_secret,
+                         user_agent=api_keys.reddit_user_agent)
 
     # Get posts from the subreddit
     subreddit = reddit.subreddit(subreddit_name)
